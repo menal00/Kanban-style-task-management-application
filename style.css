@@ -1,1 +1,62 @@
 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: #f4f4f4;
+}
+
+.app h1 {
+  text-align: center;
+}
+
+.counter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.counter-box {
+  background: white;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.boards-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.board {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  width: 300px;
+  border: 1px solid #ddd;
+}
+
+.task-card {
+  background: #fafafa;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.task-form input,
+.task-form textarea,
+.task-form button {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
