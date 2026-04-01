@@ -9,28 +9,14 @@ function App() {
     }
 
     return [
-      {
-        id: 1,
-        title: "To Do",
-        tasks: []
-      },
-      {
-        id: 2,
-        title: "In Progress",
-        tasks: []
-      },
-      {
-        id: 3,
-        title: "Done",
-        tasks: []
-      }
+      { id: 1, title: "To Do", tasks: [] },
+      { id: 2, title: "In Progress", tasks: [] },
+      { id: 3, title: "Done", tasks: [] }
     ];
   });
 
   function getTaskLabel(dueDate) {
-    if (!dueDate) {
-      return "No Due Date";
-    }
+    if (!dueDate) return "No Due Date";
 
     const today = new Date();
     const due = new Date(dueDate);
@@ -38,85 +24,16 @@ function App() {
     today.setHours(0, 0, 0, 0);
     due.setHours(0, 0, 0, 0);
 
-    const diffTime = due - today;
-    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+    const diffDays = (due - today) / (1000 * 60 * 60 * 24);
 
-    if (diffDays < 0) {
-      return "Overdue";
-    } else if (diffDays <= 2) {
-      return "Due Soon";
-    } else {
-      return "On Track";
-    }
-  }
-
-  function updateAllTaskLabels(boardList) {
-    return boardList.map((board) => {
-      const updatedTasks = board.tasks.map((task) => {
-        return {
-          ...task,
-          label: getTaskLabel(task.dueDate)
-        };
-      });
-
-      return {
-        ...board,
-        tasks: updatedTasks
-      };
-    });
+    if (diffDays < 0) return "Overdue";
+    if (diffDays <= 2) return "Due Soon";
+    return "On Track";
   }
 
   useEffect(() => {
-    const updatedBoards = updateAllTaskLabels(boards);
-    localStorage.setItem("boards", JSON.stringify(updatedBoards));
+    localStorage.setItem("boards", JSON.stringify(boards));
   }, [boards]);
-
-  function addBoard() {
-    const boardTitle = prompt("Enter board name:");
-
-    if (!boardTitle || boardTitle.trim() === "") {
-      return;
-    }
-
-    const newBoard = {
-      id: Date.now(),
-      title: boardTitle,
-      tasks: []
-    };
-
-    setBoards([...boards, newBoard]);
-  }
-
-  function renameBoard(boardId) {
-    const newTitle = prompt("Enter new board name:");
-
-    if (!newTitle || newTitle.trim() === "") {
-      return;
-    }
-
-    const updatedBoards = boards.map((board) => {
-      if (board.id === boardId) {
-        return {
-          ...board,
-          title: newTitle
-        };
-      }
-      return board;
-    });
-
-    setBoards(updatedBoards);
-  }
-
-  function deleteBoard(boardId) {
-    const confirmDelete = window.confirm("Are you sure you want to delete this board?");
-
-    if (!confirmDelete) {
-      return;
-    }
-
-    const updatedBoards = boards.filter((board) => board.id !== boardId);
-    setBoards(updatedBoards);
-  }
 
   function addTask(boardId, taskData) {
     const newTask = {
@@ -129,124 +46,121 @@ function App() {
       label: getTaskLabel(taskData.dueDate)
     };
 
-    const updatedBoards = boards.map((board) => {
-      if (board.id === boardId) {
-        return {
-          ...board,
-          tasks: [...board.tasks, newTask]
-        };
-      }
-      return board;
-    });
-
-    setBoards(updatedBoards);
+    setBoards(
+      boards.map((board) =>
+        board.id === boardId
+          ? { ...board, tasks: [...board.tasks, newTask] }
+          : board
+      )
+    );
   }
 
   function editTask(boardId, taskId, updatedTaskData) {
-    const updatedBoards = boards.map((board) => {
-      if (board.id === boardId) {
-        const updatedTasks = board.tasks.map((task) => {
-          if (task.id === taskId) {
-            return {
-              ...task,
-              title: updatedTaskData.title,
-              description: updatedTaskData.description,
-              dueDate: updatedTaskData.dueDate,
-              priority: updatedTaskData.priority,
-              label: getTaskLabel(updatedTaskData.dueDate)
-            };
-          }
-          return task;
-        });
-
-        return {
-          ...board,
-          tasks: updatedTasks
-        };
-      }
-      return board;
-    });
-
-    setBoards(updatedBoards);
+    setBoards(
+      boards.map((board) => {
+        if (board.id === boardId) {
+          return {
+            ...board,
+            tasks: board.tasks.map((task) =>
+              task.id === taskId
+                ? {
+                    ...task,
+                    ...updatedTaskData,
+                    label: getTaskLabel(updatedTaskData.dueDate)
+                  }
+                : task
+            )
+          };
+        }
+        return board;
+      })
+    );
   }
 
   function deleteTask(boardId, taskId) {
-    const updatedBoards = boards.map((board) => {
-      if (board.id === boardId) {
-        return {
-          ...board,
-          tasks: board.tasks.filter((task) => task.id !== taskId)
-        };
-      }
-      return board;
-    });
+    setBoards(
+      boards.map((board) =>
+        board.id === boardId
+          ? { ...board, tasks: board.tasks.filter((t) => t.id !== taskId) }
+          : board
+      )
+    );
+  }
 
-    setBoards(updatedBoards);
+  function addBoard() {
+    const name = prompt("Board name:");
+    if (!name) return;
+
+    setBoards([...boards, { id: Date.now(), title: name, tasks: [] }]);
+  }
+
+  function renameBoard(id) {
+    const name = prompt("New name:");
+    if (!name) return;
+
+    setBoards(
+      boards.map((b) => (b.id === id ? { ...b, title: name } : b))
+    );
+  }
+
+  function deleteBoard(id) {
+    if (!confirm("Delete board?")) return;
+    setBoards(boards.filter((b) => b.id !== id));
   }
 
   function moveTask(sourceBoardId, targetBoardId, taskId, targetTaskId) {
     let taskToMove = null;
 
-    const boardsWithoutTask = boards.map((board) => {
+    const updated = boards.map((board) => {
       if (board.id === sourceBoardId) {
-        const filteredTasks = board.tasks.filter((task) => {
-          if (task.id === taskId) {
-            taskToMove = task;
-            return false;
-          }
-          return true;
-        });
-
         return {
           ...board,
-          tasks: filteredTasks
+          tasks: board.tasks.filter((t) => {
+            if (t.id === taskId) taskToMove = t;
+            return t.id !== taskId;
+          })
         };
       }
-
       return board;
     });
 
-    const updatedBoards = boardsWithoutTask.map((board) => {
-      if (board.id === targetBoardId && taskToMove) {
-        const newTasks = [...board.tasks];
+    setBoards(
+      updated.map((board) => {
+        if (board.id === targetBoardId && taskToMove) {
+          const newTasks = [...board.tasks];
 
-        if (targetTaskId === null) {
-          newTasks.push(taskToMove);
-        } else {
-          const targetIndex = newTasks.findIndex((task) => task.id === targetTaskId);
-
-          if (targetIndex === -1) {
+          if (!targetTaskId) {
             newTasks.push(taskToMove);
           } else {
-            newTasks.splice(targetIndex, 0, taskToMove);
+            const index = newTasks.findIndex((t) => t.id === targetTaskId);
+            newTasks.splice(index, 0, taskToMove);
           }
+
+          return { ...board, tasks: newTasks };
         }
-
-        return {
-          ...board,
-          tasks: newTasks
-        };
-      }
-
-      return board;
-    });
-
-    setBoards(updatedBoards);
+        return board;
+      })
+    );
   }
 
+  // ✅ counters
   const totalBoards = boards.length;
+  const totalTasks = boards.reduce((s, b) => s + b.tasks.length, 0);
 
-  const totalTasks = boards.reduce((sum, board) => {
-    return sum + board.tasks.length;
-  }, 0);
+  const overdueTasks = boards.reduce(
+    (s, b) => s + b.tasks.filter((t) => t.label === "Overdue").length,
+    0
+  );
 
-  const overdueTasks = boards.reduce((sum, board) => {
-    return sum + board.tasks.filter((task) => task.label === "Overdue").length;
-  }, 0);
+  const dueSoonTasks = boards.reduce(
+    (s, b) => s + b.tasks.filter((t) => t.label === "Due Soon").length,
+    0
+  );
 
-  const dueSoonTasks = boards.reduce((sum, board) => {
-    return sum + board.tasks.filter((task) => task.label === "Due Soon").length;
-  }, 0);
+  const highPriorityTasks = boards.reduce(
+    (s, b) => s + b.tasks.filter((t) => t.priority === "High").length,
+    0
+  );
 
   return (
     <div className="app">
@@ -257,10 +171,11 @@ function App() {
         totalTasks={totalTasks}
         overdueTasks={overdueTasks}
         dueSoonTasks={dueSoonTasks}
+        highPriorityTasks={highPriorityTasks}
       />
 
       <div className="top-actions">
-        <button onClick={addBoard}>Add New Board</button>
+        <button onClick={addBoard}>Add Board</button>
       </div>
 
       <div className="boards-container">
@@ -281,5 +196,4 @@ function App() {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
