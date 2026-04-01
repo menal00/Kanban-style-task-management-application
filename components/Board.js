@@ -90,7 +90,7 @@ function Board({
     ? "red"
     : task.priority === "Medium"
     ? "orange"
-    : "#b59f00"  
+    : "green"  
                   }}
                 >
                   Priority: {task.priority}
