@@ -158,3 +158,50 @@ function App() {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
+
+            function addBoard() {
+  const boardTitle = prompt("Enter board name:");
+
+  if (!boardTitle || boardTitle.trim() === "") {
+    return;
+  }
+
+  const newBoard = {
+    id: Date.now(),
+    title: boardTitle,
+    tasks: []
+  };
+
+  setBoards([...boards, newBoard]);
+}
+
+function renameBoard(boardId) {
+  const newTitle = prompt("Enter new board name:");
+
+  if (!newTitle || newTitle.trim() === "") {
+    return;
+  }
+
+  const updatedBoards = boards.map((board) => {
+    if (board.id === boardId) {
+      return {
+        ...board,
+        title: newTitle
+      };
+    }
+    return board;
+  });
+
+  setBoards(updatedBoards);
+}
+
+function deleteBoard(boardId) {
+  const confirmDelete = window.confirm("Are you sure you want to delete this board?");
+
+  if (!confirmDelete) {
+    return;
+  }
+
+  const updatedBoards = boards.filter((board) => board.id !== boardId);
+  setBoards(updatedBoards);
+}
