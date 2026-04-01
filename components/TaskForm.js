@@ -1,7 +1,8 @@
-
 function TaskForm({ onSubmit, initialData = null, buttonText }) {
   const [title, setTitle] = React.useState(initialData ? initialData.title : "");
-  const [description, setDescription] = React.useState(initialData ? initialData.description : "");
+  const [description, setDescription] = React.useState(
+    initialData ? initialData.description : ""
+  );
   const [dueDate, setDueDate] = React.useState(initialData ? initialData.dueDate : "");
 
   function handleSubmit(e) {
@@ -13,9 +14,9 @@ function TaskForm({ onSubmit, initialData = null, buttonText }) {
     }
 
     onSubmit({
-      title,
-      description,
-      dueDate
+      title: title,
+      description: description,
+      dueDate: dueDate
     });
 
     if (!initialData) {
