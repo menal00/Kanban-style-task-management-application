@@ -272,3 +272,15 @@ function moveTask(sourceBoardId, targetBoardId, taskId) {
 
   setBoards(finalBoards);
 }
+<Board
+  key={board.id}
+  board={board}
+  addTask={addTask}
+  editTask={editTask}
+  deleteTask={deleteTask}
+  renameBoard={renameBoard}
+  deleteBoard={deleteBoard}
+  moveTask={moveTask}
+/>
+
+    
