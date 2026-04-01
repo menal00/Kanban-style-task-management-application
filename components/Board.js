@@ -1,12 +1,31 @@
-
-function Board({ board, addTask, editTask, deleteTask }) {
+function Board({
+  board,
+  addTask,
+  editTask,
+  deleteTask,
+  renameBoard,
+  deleteBoard,
+  moveTask
+}) {
   const [showForm, setShowForm] = React.useState(false);
   const [editingTaskId, setEditingTaskId] = React.useState(null);
 
   return (
-    <div className="board">
+    <div
+      className="board"
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={(e) => {
+        e.preventDefault();
+
+        const data = JSON.parse(e.dataTransfer.getData("task"));
+
+        moveTask(data.sourceBoardId, board.id, data.taskId, null);
+      }}
+    >
       <h2>{board.title}</h2>
 
+      <button onClick={() => renameBoard(board.id)}>Rename Board</button>
+      <button onClick={() => deleteBoard(board.id)}>Delete Board</button>
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? "Close Form" : "Add Task"}
       </button>
@@ -23,60 +42,29 @@ function Board({ board, addTask, editTask, deleteTask }) {
 
       <div className="task-list">
         {board.tasks.map((task) => (
-          <div className="task-card" key={task.id}>
-            {editingTaskId === task.id ? (
-              <TaskForm
-                initialData={task}
-                buttonText="Save Changes"
-                onSubmit={(updatedTaskData) => {
-                  editTask(board.id, task.id, updatedTaskData);
-                  setEditingTaskId(null);
-                }}
-              />
-            ) : (
-              <>
-                <h3>{task.title}</h3>
-                <p>{task.description}</p>
-                <p><strong>Created:</strong> {task.createdAt}</p>
-                <p><strong>Due:</strong> {task.dueDate || "No date"}</p>
-                <p><strong>Status:</strong> {task.label}</p>
+          <div
+            className="task-card"
+            key={task.id}
+            draggable="true"
+            onDragStart={(e) => {
+              e.dataTransfer.setData(
+                "task",
+                JSON.stringify({
+                  taskId: task.id,
+                  sourceBoardId: board.id
+                })
+              );
+            }}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
 
-                <button onClick={() => setEditingTaskId(task.id)}>Edit</button>
-                <button onClick={() => deleteTask(board.id, task.id)}>Delete</button>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
+              const data = JSON.parse(e.dataTransfer.getData("task"));
 
-          function Board({ board, addTask, editTask, deleteTask, renameBoard, deleteBoard }) {
-  const [showForm, setShowForm] = React.useState(false);
-  const [editingTaskId, setEditingTaskId] = React.useState(null);
-
-  return (
-    <div className="board">
-      <h2>{board.title}</h2>
-
-      <button onClick={() => renameBoard(board.id)}>Rename Board</button>
-      <button onClick={() => deleteBoard(board.id)}>Delete Board</button>
-
-      <button onClick={() => setShowForm(!showForm)}>
-        {showForm ? "Close Form": "Add Task"}
-      </button>
-
-      {showForm && (
-        <TaskForm
-          buttonText="Add Task"
-          onSubmit={(taskData) => {
-            addTask(board.id, taskData);
-            setShowForm(false);
-          }}
-        />
-      )}
-
-      <div className="task-list">
-        {board.tasks.map((task) => (
-          <div className="task-card" key={task.id}>
+              moveTask(data.sourceBoardId, board.id, data.taskId, task.id);
+            }}
+          >
             {editingTaskId === task.id ? (
               <TaskForm
                 initialData={task}
@@ -104,41 +92,3 @@ function Board({ board, addTask, editTask, deleteTask }) {
     </div>
   );
 }
-    </div>
-  );
-}
-
-<div
-  className="task-card"
-  key={task.id}
-  draggable="true"
-  onDragStart={(e) => {
-    e.dataTransfer.setData(
-      "task",
-      JSON.stringify({
-        taskId: task.id,
-        sourceBoardId: board.id
-      })
-    );
-  }}
->
-
-    <div
-  className="board"
-  onDragOver={(e) => e.preventDefault()}
-  onDrop={(e) => {
-    const data = JSON.parse(e.dataTransfer.getData("task"));
-
-    moveTask(data.sourceBoardId, board.id, data.taskId);
-  }}
->
-
-              function Board({
-  board,
-  addTask,
-  editTask,
-  deleteTask,
-  renameBoard,
-  deleteBoard,
-  moveTask
-}) {
