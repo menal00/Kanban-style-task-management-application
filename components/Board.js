@@ -45,13 +45,13 @@ function Board({
             className="task-card"
             key={task.id}
             draggable="true"
-            style={{
+    style={{
   background:
     task.priority === "High"
-      ? "#ffe6e6"     
+      ? "#ffe6e6"   
       : task.priority === "Medium"
-      ? "#fff4e6"     
-      : "#fff9cc"     
+      ? "#fff4e6"   
+      : "#e6ffe6"   
 }}
             onDragStart={(e) => {
               e.dataTransfer.setData(
@@ -86,11 +86,11 @@ function Board({
                   style={{
                     fontWeight: "bold",
                    color:
-  task.priority === "High"
-    ? "red"
-    : task.priority === "Medium"
-    ? "orange"
-    : "green"  
+                  task.priority === "High"
+                    ? "red"
+                    : task.priority === "Medium"
+                    ? "orange"
+                    : "#2ecc71"   
                   }}
                 >
                   Priority: {task.priority}
