@@ -85,12 +85,12 @@ function Board({
                 <p
                   style={{
                     fontWeight: "bold",
-                    color:
-                      task.priority === "High"
-                        ? "red"
-                        : task.priority === "Medium"
-                        ? "orange"
-                        : "green"
+                   color:
+  task.priority === "High"
+    ? "red"
+    : task.priority === "Medium"
+    ? "orange"
+    : "#b59f00"  
                   }}
                 >
                   Priority: {task.priority}
