@@ -60,3 +60,13 @@ body {
 button {
   cursor: pointer;
 }
+
+.top-actions {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.board button {
+  margin-right: 8px;
+  margin-top: 8px;
+}
