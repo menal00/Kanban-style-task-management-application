@@ -132,3 +132,13 @@ function Board({ board, addTask, editTask, deleteTask }) {
     moveTask(data.sourceBoardId, board.id, data.taskId);
   }}
 >
+
+              function Board({
+  board,
+  addTask,
+  editTask,
+  deleteTask,
+  renameBoard,
+  deleteBoard,
+  moveTask
+}) {
