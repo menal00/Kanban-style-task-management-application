@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  background: #f4f4f4;
+  background: linear-gradient(to right, #e3f2fd, #fce4ec);
 }
 
 .app h1 {
@@ -37,12 +37,13 @@ body {
 }
 
 .board {
-  background: white;
+  background: #ffffff;
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 10px;
   width: 300px;
   border: 1px solid #ddd;
   min-height: 250px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .board h2 {
@@ -59,20 +60,29 @@ body {
 }
 
 .task-card {
-  background: #fafafa;
   border: 1px solid #ccc;
   margin-top: 10px;
   padding: 10px;
   border-radius: 6px;
+  transition: 0.2s;
+}
+
+.task-card:hover {
+  transform: scale(1.02);
 }
 
 .task-card h3 {
   margin-top: 0;
 }
 
+.task-card p strong {
+  color: #333;
+}
+
 .task-form input,
 .task-form textarea,
-.task-form button {
+.task-form button,
+.task-form select {
   display: block;
   width: 100%;
   margin-top: 8px;
@@ -87,45 +97,6 @@ body {
 
 button {
   cursor: pointer;
-}
-
-.board {
-  background: #ffffff;
-  border-left: 6px solid #4CAF50;
-}
-.task-card p strong {
-  color: #333;
-}
-
-.task-card {
-  transition: 0.2s;
-}
-
-.task-card:hover {
-  transform: scale(1.02);
-}
-.board {
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.board {
-  background: #ffffff;
-  padding: 15px;
-  border-radius: 10px;
-  width: 300px;
-  border: 1px solid #ddd;
-  min-height: 250px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  background: linear-gradient(to right, #e3f2fd, #fce4ec);
-}
-
-button {
   background: #3498db;
   color: white;
   border: none;
@@ -135,18 +106,4 @@ button {
 
 button:hover {
   background: #2980b9;
-}
-
-.task-form select {
-  margin-top: 8px;
-  padding: 8px;
-  width: 100%;
-}
-
-.task-card {
-  transition: 0.2s;
-}
-
-.task-card:hover {
-  transform: scale(1.02);
 }
