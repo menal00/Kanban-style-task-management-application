@@ -107,3 +107,28 @@ function Board({ board, addTask, editTask, deleteTask }) {
     </div>
   );
 }
+
+<div
+  className="task-card"
+  key={task.id}
+  draggable="true"
+  onDragStart={(e) => {
+    e.dataTransfer.setData(
+      "task",
+      JSON.stringify({
+        taskId: task.id,
+        sourceBoardId: board.id
+      })
+    );
+  }}
+>
+
+    <div
+  className="board"
+  onDragOver={(e) => e.preventDefault()}
+  onDrop={(e) => {
+    const data = JSON.parse(e.dataTransfer.getData("task"));
+
+    moveTask(data.sourceBoardId, board.id, data.taskId);
+  }}
+>
