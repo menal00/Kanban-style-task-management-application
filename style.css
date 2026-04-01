@@ -136,3 +136,17 @@ button {
 button:hover {
   background: #2980b9;
 }
+
+.task-form select {
+  margin-top: 8px;
+  padding: 8px;
+  width: 100%;
+}
+
+.task-card {
+  transition: 0.2s;
+}
+
+.task-card:hover {
+  transform: scale(1.02);
+}
