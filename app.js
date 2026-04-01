@@ -143,7 +143,7 @@ function App() {
     );
   }
 
-  // ✅ counters
+
   const totalBoards = boards.length;
   const totalTasks = boards.reduce((s, b) => s + b.tasks.length, 0);
 
