@@ -236,3 +236,39 @@ return (
     </div>
   </div>
 );
+
+function moveTask(sourceBoardId, targetBoardId, taskId) {
+  let taskToMove = null;
+
+  const updatedBoards = boards.map((board) => {
+    // remove task from source board
+    if (board.id === sourceBoardId) {
+      const filteredTasks = board.tasks.filter((task) => {
+        if (task.id === taskId) {
+          taskToMove = task;
+          return false;
+        }
+        return true;
+      });
+
+      return {
+        ...board,
+        tasks: filteredTasks
+      };
+    }
+    return board;
+  });
+
+  const finalBoards = updatedBoards.map((board) => {
+    // add task to target board
+    if (board.id === targetBoardId && taskToMove) {
+      return {
+        ...board,
+        tasks: [...board.tasks, taskToMove]
+      };
+    }
+    return board;
+  });
+
+  setBoards(finalBoards);
+}
