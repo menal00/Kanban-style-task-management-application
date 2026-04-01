@@ -1,4 +1,3 @@
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -25,10 +24,16 @@ body {
   border-radius: 6px;
 }
 
+.top-actions {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .boards-container {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .board {
@@ -37,6 +42,20 @@ body {
   border-radius: 8px;
   width: 300px;
   border: 1px solid #ddd;
+  min-height: 250px;
+}
+
+.board h2 {
+  margin-top: 0;
+}
+
+.board button {
+  margin-right: 8px;
+  margin-top: 8px;
+}
+
+.task-list {
+  margin-top: 15px;
 }
 
 .task-card {
@@ -45,6 +64,10 @@ body {
   margin-top: 10px;
   padding: 10px;
   border-radius: 6px;
+}
+
+.task-card h3 {
+  margin-top: 0;
 }
 
 .task-form input,
@@ -57,16 +80,11 @@ body {
   box-sizing: border-box;
 }
 
+.task-form textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
 button {
   cursor: pointer;
-}
-
-.top-actions {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.board button {
-  margin-right: 8px;
-  margin-top: 8px;
 }
