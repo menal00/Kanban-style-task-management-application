@@ -41,30 +41,36 @@ function Board({
       )}
 
       <div className="task-list">
-        {board.tasks.map((task) => (
-          <div
-            className="task-card"
-            key={task.id}
-            draggable="true"
-            onDragStart={(e) => {
-              e.dataTransfer.setData(
-                "task",
-                JSON.stringify({
-                  taskId: task.id,
-                  sourceBoardId: board.id
-                })
-              );
-            }}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
+   {board.tasks.map((task) => (
+  <div className="task-card" key={task.id}>
+    <>
+      <p
+        style={{
+          fontWeight: "bold",
+          color:
+            task.priority === "High"
+              ? "red"
+              : task.priority === "Medium"
+              ? "orange"
+              : "green"
+        }}
+      >
+        Priority: {task.priority}
+      </p>
 
-              const data = JSON.parse(e.dataTransfer.getData("task"));
+      <h3>{task.title}</h3>
+      <p>{task.description}</p>
 
-              moveTask(data.sourceBoardId, board.id, data.taskId, task.id);
-            }}
-          >
+  onDragStart={(e) => {
+    e.dataTransfer.setData(
+      "task",
+      JSON.stringify({
+        taskId: task.id,
+        sourceBoardId: board.id
+      })
+    );
+  }}
+>
             {editingTaskId === task.id ? (
               <TaskForm
                 initialData={task}
@@ -76,6 +82,9 @@ function Board({
               />
             ) : (
               <>
+                  
+  <p style={...}>Priority: {task.priority}</p>
+  <h3>{task.title}</h3>
                 <h3>{task.title}</h3>
                 <p>{task.description}</p>
                 <p><strong>Created:</strong> {task.createdAt}</p>
