@@ -46,13 +46,13 @@ function Board({
             key={task.id}
             draggable="true"
             style={{
-              background:
-                task.priority === "High"
-                  ? "#ffe6e6"
-                  : task.priority === "Medium"
-                  ? "#fff4e6"
-                  : "#e6ffe6"
-            }}
+  background:
+    task.priority === "High"
+      ? "#ffe6e6"     
+      : task.priority === "Medium"
+      ? "#fff4e6"     
+      : "#fff9cc"     
+}}
             onDragStart={(e) => {
               e.dataTransfer.setData(
                 "task",
