@@ -3,7 +3,9 @@ function TaskForm({ onSubmit, initialData = null, buttonText }) {
   const [description, setDescription] = React.useState(
     initialData ? initialData.description : ""
   );
-  const [dueDate, setDueDate] = React.useState(initialData ? initialData.dueDate : "");
+  const [dueDate, setDueDate] = React.useState(
+    initialData ? initialData.dueDate : ""
+  );
   const [priority, setPriority] = React.useState(
     initialData ? initialData.priority : "Medium"
   );
@@ -52,7 +54,6 @@ function TaskForm({ onSubmit, initialData = null, buttonText }) {
         onChange={(e) => setDueDate(e.target.value)}
       />
 
-      {/* NEW: Priority */}
       <select
         value={priority}
         onChange={(e) => setPriority(e.target.value)}
