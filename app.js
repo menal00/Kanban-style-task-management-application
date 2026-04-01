@@ -205,3 +205,34 @@ function deleteBoard(boardId) {
   const updatedBoards = boards.filter((board) => board.id !== boardId);
   setBoards(updatedBoards);
 }
+
+return (
+  <div className="app">
+    <h1>Kanban Task Manager</h1>
+
+    <CounterBar
+      totalBoards={totalBoards}
+      totalTasks={totalTasks}
+      overdueTasks={overdueTasks}
+      dueSoonTasks={dueSoonTasks}
+    />
+
+    <div className="top-actions">
+      <button onClick={addBoard}>Add New Board</button>
+    </div>
+
+    <div className="boards-container">
+      {boards.map((board) => (
+        <Board
+          key={board.id}
+          board={board}
+          addTask={addTask}
+          editTask={editTask}
+          deleteTask={deleteTask}
+          renameBoard={renameBoard}
+          deleteBoard={deleteBoard}
+        />
+      ))}
+    </div>
+  </div>
+);
