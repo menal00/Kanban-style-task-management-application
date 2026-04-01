@@ -18,7 +18,6 @@ function Board({
         e.preventDefault();
 
         const data = JSON.parse(e.dataTransfer.getData("task"));
-
         moveTask(data.sourceBoardId, board.id, data.taskId, null);
       }}
     >
@@ -41,36 +40,37 @@ function Board({
       )}
 
       <div className="task-list">
-   {board.tasks.map((task) => (
-  <div className="task-card" key={task.id}>
-    <>
-      <p
-        style={{
-          fontWeight: "bold",
-          color:
-            task.priority === "High"
-              ? "red"
-              : task.priority === "Medium"
-              ? "orange"
-              : "green"
-        }}
-      >
-        Priority: {task.priority}
-      </p>
+        {board.tasks.map((task) => (
+          <div
+            className="task-card"
+            key={task.id}
+            draggable="true"
+            style={{
+              background:
+                task.priority === "High"
+                  ? "#ffe6e6"
+                  : task.priority === "Medium"
+                  ? "#fff4e6"
+                  : "#e6ffe6"
+            }}
+            onDragStart={(e) => {
+              e.dataTransfer.setData(
+                "task",
+                JSON.stringify({
+                  taskId: task.id,
+                  sourceBoardId: board.id
+                })
+              );
+            }}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
 
-      <h3>{task.title}</h3>
-      <p>{task.description}</p>
-
-  onDragStart={(e) => {
-    e.dataTransfer.setData(
-      "task",
-      JSON.stringify({
-        taskId: task.id,
-        sourceBoardId: board.id
-      })
-    );
-  }}
->
+              const data = JSON.parse(e.dataTransfer.getData("task"));
+              moveTask(data.sourceBoardId, board.id, data.taskId, task.id);
+            }}
+          >
             {editingTaskId === task.id ? (
               <TaskForm
                 initialData={task}
@@ -82,9 +82,20 @@ function Board({
               />
             ) : (
               <>
-                  
-  <p style={...}>Priority: {task.priority}</p>
-  <h3>{task.title}</h3>
+                <p
+                  style={{
+                    fontWeight: "bold",
+                    color:
+                      task.priority === "High"
+                        ? "red"
+                        : task.priority === "Medium"
+                        ? "orange"
+                        : "green"
+                  }}
+                >
+                  Priority: {task.priority}
+                </p>
+
                 <h3>{task.title}</h3>
                 <p>{task.description}</p>
                 <p><strong>Created:</strong> {task.createdAt}</p>
