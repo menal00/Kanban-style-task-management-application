@@ -119,14 +119,15 @@ function App() {
   }
 
   function addTask(boardId, taskData) {
-    const newTask = {
-      id: Date.now(),
-      title: taskData.title,
-      description: taskData.description,
-      createdAt: new Date().toISOString().split("T")[0],
-      dueDate: taskData.dueDate,
-      label: getTaskLabel(taskData.dueDate)
-    };
+  const newTask = {
+  id: Date.now(),
+  title: taskData.title,
+  description: taskData.description,
+  createdAt: new Date().toISOString().split("T")[0],
+  dueDate: taskData.dueDate,
+  priority: taskData.priority,
+  label: getTaskLabel(taskData.dueDate)
+};
 
     const updatedBoards = boards.map((board) => {
       if (board.id === boardId) {
@@ -151,7 +152,8 @@ function App() {
               title: updatedTaskData.title,
               description: updatedTaskData.description,
               dueDate: updatedTaskData.dueDate,
-              label: getTaskLabel(updatedTaskData.dueDate)
+              label: getTaskLabel(updatedTaskData.dueDate),
+              priority: updatedTaskData.priority,
             };
           }
           return task;
