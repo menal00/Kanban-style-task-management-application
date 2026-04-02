@@ -1,7 +1,7 @@
 const { useState, useEffect } = React;
-/---------/ Main App Component /---------/
+// /---------/ Main App Component /---------/
 function App() {
-/---------/ State Initialization with localStorage /---------/
+// /---------/ State Initialization with localStorage /---------/
   const [boards, setBoards] = useState(() => {
     const savedBoards = localStorage.getItem("boards");
 
@@ -15,7 +15,7 @@ function App() {
       { id: 3, title: "Done", tasks: [] }
     ];
   });
-/---------/ Helper Function: Task Status Label /---------/
+// /---------/ Helper Function: Task Status Label /---------/
   function getTaskLabel(dueDate) {
     if (!dueDate) return "No Due Date";
 
@@ -31,11 +31,11 @@ function App() {
     if (diffDays <= 2) return "Due Soon";
     return "On Track";
   }
-/---------/ Persistence: Save to localStorage /---------/
+// /---------/ Persistence: Save to localStorage /---------/
   useEffect(() => {
     localStorage.setItem("boards", JSON.stringify(boards));
   }, [boards]);
-/---------/ Task CRUD Operations /---------/
+// /---------/ Task CRUD Operations /---------/
   function addTask(boardId, taskData) {
     const newTask = {
       id: Date.now(),
@@ -87,7 +87,7 @@ function App() {
       )
     );
   }
-/---------/ Board CRUD Operations /---------/
+// /---------/ Board CRUD Operations /---------/
   function addBoard() {
     const name = prompt("Board name:");
     if (!name) return;
@@ -108,7 +108,7 @@ function App() {
     if (!confirm("Delete board?")) return;
     setBoards(boards.filter((b) => b.id !== id));
   }
-/---------/ Drag & Drop: Move Task /---------/
+// /---------/ Drag & Drop: Move Task /---------/
   function moveTask(sourceBoardId, targetBoardId, taskId, targetTaskId) {
     let taskToMove = null;
 
@@ -144,7 +144,7 @@ function App() {
     );
   }
 
- /---------/ Counter Calculations /---------/
+//  /---------/ Counter Calculations /---------/
   const totalBoards = boards.length;
   const totalTasks = boards.reduce((s, b) => s + b.tasks.length, 0);
 
@@ -162,7 +162,7 @@ function App() {
     (s, b) => s + b.tasks.filter((t) => t.priority === "High").length,
     0
   );
- /---------/ Render /---------/
+// /---------/ Render /---------/
   return (
     <div className="app">
       <h1>Kanban Task Manager</h1>
@@ -196,5 +196,5 @@ function App() {
     </div>
   );
 }
-/---------/ Render to DOM /---------/
+// /---------/ Render to DOM /---------/
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
