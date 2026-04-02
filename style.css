@@ -23,7 +23,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 6px;
 }
-
+/---------/ Top Actions /---------/
 .top-actions {
   margin-bottom: 20px;
   text-align: center;
@@ -35,7 +35,7 @@ body {
   flex-wrap: wrap;
   align-items: flex-start;
 }
-
+/---------/ Board Styles /---------/
 .board {
   background: #ffffff;
   padding: 15px;
@@ -54,11 +54,11 @@ body {
   margin-right: 8px;
   margin-top: 8px;
 }
-
+/---------/ Task List /---------/
 .task-list {
   margin-top: 15px;
 }
-
+/---------/ Task Card Styles /---------/
 .task-card {
   border: 1px solid #ccc;
   margin-top: 10px;
@@ -78,7 +78,7 @@ body {
 .task-card p strong {
   color: #333;
 }
-
+/---------/ Form Styles /---------/
 .task-form input,
 .task-form textarea,
 .task-form button,
@@ -94,7 +94,7 @@ body {
   min-height: 70px;
   resize: vertical;
 }
-
+/---------/ Button Styles /---------/
 button {
   cursor: pointer;
   background: #3498db;
