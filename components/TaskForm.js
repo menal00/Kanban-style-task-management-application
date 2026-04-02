@@ -36,25 +36,26 @@ function TaskForm({ onSubmit, initialData = null, buttonText }) {
 // /---------/ Render Form /---------/
   return (
     <form onSubmit={handleSubmit} className="task-form">
+ {/* /---------/ Title Input /---------/ */}    
       <input
         type="text"
         placeholder="Task title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-// /---------/ Title Input /---------/
+ {/* /---------/ Description Input /---------/ */}
       <textarea
         placeholder="Task description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       ></textarea>
-// /---------/ Due Date Input /---------/
+ {/* /---------/ Due Date Input /---------/ */}
       <input
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
       />
-// /---------/ Priority Select Dropdown /---------/
+{/* /---------/ Priority Select Dropdown /---------/ */}
       <select
         value={priority}
         onChange={(e) => setPriority(e.target.value)}
@@ -63,7 +64,7 @@ function TaskForm({ onSubmit, initialData = null, buttonText }) {
         <option value="Medium">Medium Priority</option>
         <option value="High">High Priority</option>
       </select>
-// /---------/ Submit Button /---------/
+ {/* /---------/ Submit Button /---------/ */}
       <button type="submit">{buttonText}</button>
     </form>
   );
