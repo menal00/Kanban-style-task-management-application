@@ -22,7 +22,7 @@ function Board({
         moveTask(data.sourceBoardId, board.id, data.taskId, null);
       }}
     >
-   //   /---------/ Board Header /---------/
+ {/* /---------/ Board Header /---------/ */}   
       <h2>{board.title}</h2>
 
       <button onClick={() => renameBoard(board.id)}>Rename Board</button>
@@ -30,7 +30,7 @@ function Board({
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? "Close Form" : "Add Task"}
       </button>
-// /---------/ Task Creation Form /---------/
+{/* /---------/ Task Creation Form /---------/ */}
       {showForm && (
         <TaskForm
           buttonText="Add Task"
@@ -40,7 +40,7 @@ function Board({
           }}
         />
       )}
-/---------/ Task List /---------/
+{/* /---------/ Task List /---------/ */}
       <div className="task-list">
         {board.tasks.map((task) => (
           <div
@@ -73,7 +73,7 @@ function Board({
               moveTask(data.sourceBoardId, board.id, data.taskId, task.id);
             }}
           >
-// /---------/ Edit Mode /---------/
+{/* /---------/ Edit Mode /---------/ */}
             {editingTaskId === task.id ? (
               <TaskForm
                 initialData={task}
@@ -84,7 +84,7 @@ function Board({
                 }}
               />
             ) : (
-// /---------/ View Mode /---------/              
+/* /---------/ View Mode /---------/ */                  
               <>
                 <p
                   style={{
