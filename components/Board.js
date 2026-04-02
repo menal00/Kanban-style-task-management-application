@@ -7,9 +7,10 @@ function Board({
   deleteBoard,
   moveTask
 }) {
+  /---------/ Local State /---------/
   const [showForm, setShowForm] = React.useState(false);
   const [editingTaskId, setEditingTaskId] = React.useState(null);
-
+/---------/ Render /---------/
   return (
     <div
       className="board"
@@ -21,6 +22,7 @@ function Board({
         moveTask(data.sourceBoardId, board.id, data.taskId, null);
       }}
     >
+      /---------/ Board Header /---------/
       <h2>{board.title}</h2>
 
       <button onClick={() => renameBoard(board.id)}>Rename Board</button>
@@ -28,7 +30,7 @@ function Board({
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? "Close Form" : "Add Task"}
       </button>
-
+/---------/ Task Creation Form /---------/
       {showForm && (
         <TaskForm
           buttonText="Add Task"
@@ -38,7 +40,7 @@ function Board({
           }}
         />
       )}
-
+/---------/ Task List /---------/
       <div className="task-list">
         {board.tasks.map((task) => (
           <div
@@ -71,6 +73,7 @@ function Board({
               moveTask(data.sourceBoardId, board.id, data.taskId, task.id);
             }}
           >
+/---------/ Edit Mode /---------/
             {editingTaskId === task.id ? (
               <TaskForm
                 initialData={task}
@@ -81,6 +84,7 @@ function Board({
                 }}
               />
             ) : (
+/---------/ View Mode /---------/              
               <>
                 <p
                   style={{
