@@ -8,7 +8,7 @@ body {
 .app h1 {
   text-align: center;
 }
-
+/---------/ Counter Bar /---------/
 .counter-bar {
   display: flex;
   gap: 10px;
@@ -28,7 +28,7 @@ body {
   margin-bottom: 20px;
   text-align: center;
 }
-
+/---------/ Boards Container /---------/
 .boards-container {
   display: flex;
   gap: 20px;
