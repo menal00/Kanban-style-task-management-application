@@ -1,4 +1,5 @@
 function TaskForm({ onSubmit, initialData = null, buttonText }) {
+   /---------/ State Initialization /---------/
   const [title, setTitle] = React.useState(initialData ? initialData.title : "");
   const [description, setDescription] = React.useState(
     initialData ? initialData.description : ""
@@ -9,7 +10,7 @@ function TaskForm({ onSubmit, initialData = null, buttonText }) {
   const [priority, setPriority] = React.useState(
     initialData ? initialData.priority : "Medium"
   );
-
+/---------/ Form Submission Handler /---------/
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -24,7 +25,7 @@ function TaskForm({ onSubmit, initialData = null, buttonText }) {
       dueDate: dueDate,
       priority: priority
     });
-
+ /---------/ Clear Form After Submission (Create Mode) /---------/
     if (!initialData) {
       setTitle("");
       setDescription("");
@@ -32,7 +33,7 @@ function TaskForm({ onSubmit, initialData = null, buttonText }) {
       setPriority("Medium");
     }
   }
-
+/---------/ Render Form /---------/
   return (
     <form onSubmit={handleSubmit} className="task-form">
       <input
@@ -41,19 +42,19 @@ function TaskForm({ onSubmit, initialData = null, buttonText }) {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-
+ /---------/ Title Input /---------/
       <textarea
         placeholder="Task description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       ></textarea>
-
+/---------/ Due Date Input /---------/
       <input
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
       />
-
+/---------/ Priority Select Dropdown /---------/
       <select
         value={priority}
         onChange={(e) => setPriority(e.target.value)}
@@ -62,7 +63,7 @@ function TaskForm({ onSubmit, initialData = null, buttonText }) {
         <option value="Medium">Medium Priority</option>
         <option value="High">High Priority</option>
       </select>
-
+/---------/ Submit Button /---------/
       <button type="submit">{buttonText}</button>
     </form>
   );
